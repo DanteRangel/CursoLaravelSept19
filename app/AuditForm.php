@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Answer extends Model
+class AuditForm extends Model
 {
     protected $fillable = [
+        'id_form',
         'id_user',
-        'id_period',
-        'id_question',
-        'answer'
+        'period'
     ];
+
+    public $timestamps = false;
+
 }
