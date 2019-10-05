@@ -1,8 +1,8 @@
-<div class="form-group {{ $errors->has($question->name) ? 'has-error' : ''}}">
+<div class="form-group">
     <label for="">{{$question->label}}</label>
     @switch($question->input->name)
         @case('select')
-            <select type="{{$question->input->name}}" name="{{$question->name}}" id="{{$question->name}}" class="form-control">
+            <select type="{{$question->input->name}}" name="{{$question->name}}" id="{{$question->name}}" class="form-control  {{ $errors->has($question->name) ? 'is-invalid' : ''}}">
                 @foreach($question->options as $option)
                     <option value="{{$option->id}}">{{$option->value}}</option>
                 @endforeach
@@ -24,7 +24,7 @@
             @endforeach
             @break
         @default
-            <{{$question->type_input->name}} type="{{$question->input->name}}" value="{{old($question->name)}}" name="{{$question->name}}" id="{{$question->name}}" class="form-control"/>
+            <{{$question->type_input->name}} type="{{$question->input->name}}" value="{{old($question->name)}}" name="{{$question->name}}" id="{{$question->name}}" class="form-control  {{ $errors->has($question->name) ? 'is-invalid' : ''}}"/>
     @endswitch
 
     @if($errors->has($question->name))
