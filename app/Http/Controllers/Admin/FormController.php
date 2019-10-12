@@ -1,8 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Form;
+use App\Http\Controllers\Controller;
+use App\Input;
+use Session;
 
 class FormController extends Controller
 {
@@ -11,9 +15,13 @@ class FormController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        
+    public function index() {
+        $forms = Form::all();
+        return view('competencias.admin.index', compact('forms'));
+    }
+
+    public function show($id) {
+        return 'este es un reporte';
     }
 
     /**
@@ -23,7 +31,8 @@ class FormController extends Controller
      */
     public function create()
     {
-        //
+        $inputs = Input::all();
+        return view('competencias.admin.create', compact('inputs'));
     }
 
     /**
@@ -34,18 +43,7 @@ class FormController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return $request->all();
     }
 
     /**
@@ -56,7 +54,9 @@ class FormController extends Controller
      */
     public function edit($id)
     {
-        //
+        $form = Form::find($id);
+        $inputs = Input::all();
+        return view('competencias.admin.show', compact('form', 'inputs'));
     }
 
     /**
@@ -79,6 +79,9 @@ class FormController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $name = Form::find($id)->name;
+        Form::destroy($id);
+        Session::flash('delete', 'Se ha eliminado la competencia ' . $name);
+        return redirect('admin/comperencia');
     }
 }

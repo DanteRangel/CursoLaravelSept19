@@ -20,8 +20,10 @@ Route::get('welcome', 'ProductController@show');
 Route::group(['middleware' => 'auth'], function(){  
     Route::resource('products', 'ProductController');
     Route::resource('users', 'UserController');
-    Route::get('users/competencia/{id}', 'UserController@competencia');
-    Route::post('users/competencia', 'UserController@saveCompetencia');
+    Route::resource('competencia', 'CompetenciaController');
+    Route::group(['prefix' => 'admin'], function(){
+        Route::resource('competencia', 'Admin\FormController');
+    });
 });
 Auth::routes();
 
